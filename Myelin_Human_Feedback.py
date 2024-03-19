@@ -71,6 +71,7 @@ with st.form("myelin-hf-form", clear_on_submit=True):
             "response_rankings": response_rankings,
             "responses": text_responses,
             "model_keys": model_keys,
+            "rewrite": rewrte
         }
 
         print(feedback_object)
