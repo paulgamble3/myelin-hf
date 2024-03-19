@@ -1,7 +1,7 @@
 import pandas as pd
 import json 
 
-fn = './data/prepare_data/NK_HF_responses_3_18.csv'
+fn = './data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.csv'
 #'data/prepare_data/NK_HF_responses_3_18.csv'
 df = pd.read_csv(fn)
 
@@ -81,7 +81,7 @@ for i, row in df.iterrows():
     }
     COLLECT_ROWS.append(row)
 
-with open("./data/prepare_data/NK_HF_responses_3_18.json", "w") as f:
+with open("./data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.json", "w") as f:
     json.dump(COLLECT_ROWS, f, indent=4)
 
     

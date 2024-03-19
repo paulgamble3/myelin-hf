@@ -5,7 +5,7 @@ import random
 
 FIREBASE_DB = '3-19-human-feedback'
 
-data_file = './data/prepare_data/NK_HF_responses_3_18.json'
+data_file = './data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.json'
 with open(data_file, "r") as f:
     ALL_DATA = json.load(f)
 
