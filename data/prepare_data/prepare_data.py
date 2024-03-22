@@ -1,7 +1,9 @@
 import pandas as pd
 import json 
 
-fn = './data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.csv'
+data_name = 'eval_5_7_rep_all_responses_merged_1'
+
+fn = './data/prepare_data/' + data_name + '.csv'
 #'data/prepare_data/NK_HF_responses_3_18.csv'
 df = pd.read_csv(fn)
 
@@ -49,10 +51,16 @@ for i, row in df.iterrows():
         kickout_checklist = ""
 
     responses = {
-        "gpt4_0": row['gpt4_0'],
-        "G55_0.3": row['G55_0.3'],
-        "G54_0.6": row['G54_0.6'],
-        "G54_1.0": row['G54_1.0']
+        # #gpt4	g55_0.3	g54_0.6
+        # "gpt4": row['gpt4'],
+        # "G55_0.3": row['g55_0.3'],
+        # "G54_0.6": row['g54_0.6'],
+        # #"G54_1.0": row['G54_1.0']
+        "gpt4": row['gpt4'],
+        "old": row['old'],
+        "g54_0": row['g54_0'],
+        "g54_0.6": row['g54_0.6'],
+        "g54_1": row['g54_1'],
     }
 
     instruction = row['instruction']
@@ -81,7 +89,7 @@ for i, row in df.iterrows():
     }
     COLLECT_ROWS.append(row)
 
-with open("./data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.json", "w") as f:
+with open("./data/prepare_data/"+data_name+".json", "w") as f:
     json.dump(COLLECT_ROWS, f, indent=4)
 
     

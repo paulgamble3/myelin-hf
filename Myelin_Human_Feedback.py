@@ -3,9 +3,9 @@ from firebase.firebase_utils import write_task_item
 import json
 import random
 
-FIREBASE_DB = '3-19-human-feedback'
+FIREBASE_DB = '3-22-human-feedback'
 
-data_file = './data/prepare_data/eval_calls_mar_2024_5_to_7_with_responses_6k.json'
+data_file = './data/prepare_data/eval_5_7_rep_all_responses_merged_1.json'
 with open(data_file, "r") as f:
     ALL_DATA = json.load(f)
 
@@ -63,6 +63,7 @@ with st.form("myelin-hf-form", clear_on_submit=True):
             response_rankings.append(st.session_state[model_key])
 
         rewrte = str(st.session_state["rewrite"])
+        flag_text = str(st.session_state["flag_text"])
 
 
         feedback_object = {
@@ -71,7 +72,8 @@ with st.form("myelin-hf-form", clear_on_submit=True):
             "response_rankings": response_rankings,
             "responses": text_responses,
             "model_keys": model_keys,
-            "rewrite": rewrte
+            "rewrite": rewrte,
+            "flag_text": flag_text,
         }
 
         print(feedback_object)
@@ -91,16 +93,16 @@ with st.form("myelin-hf-form", clear_on_submit=True):
             with st.container(border=True):
                 st.write("**" + turn['speaker'] + ":** " + turn['text'])
 
-    st.write("**Read the following responses and rank them 1-4 (1 is the best, 4 is the worst). Please ensure that you give each response a different ranking:**")
+    st.write("**Read the following responses and rank them 1-5 (1 is the best, 5 is the worst). Please ensure that you give each response a different ranking:**")
 
     for model_key, response in responses.items():
         with st.container(border=True):
             st.write(response)
             #st.radio("Rank this response", options=[1, 2, 3, 4], key=response)
-            st.selectbox("Rank this response:", options=[1, 2, 3, 4], key=model_key)
+            st.selectbox("Rank this response:", options=[1, 2, 3, 4, 5], key=model_key)
 
     # no real way to validate this input...
             
     rewrite = st.text_area("If you feel that none of responses are good, and/or you have a better response in mind, please write it here:", key="rewrite")
-
+    flag_text = st.text_area("If you have any other feedback, please write it here:", key="flag_text")
     submit_button = st.form_submit_button(label='Submit', on_click=capture_score)
